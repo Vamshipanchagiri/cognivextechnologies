@@ -7,16 +7,21 @@ const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Navigate to homepage when clicking logo or company name
+  const handleLogoClick = () => {
+    navigate('/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleCompanyLinkClick = (e, sectionId) => {
     e.preventDefault();
-    const path = `/#${sectionId}`;
     if (location.pathname === '/') {
       const targetElement = document.getElementById(sectionId);
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      navigate(path);
+      navigate(`/#${sectionId}`);
     }
   };
 
@@ -40,6 +45,7 @@ const Footer = () => {
   ];
 
   const companyLinks = [
+    { name: 'Home', sectionId: '' }, // Home link
     { name: 'About Us', sectionId: 'about' },
     { name: 'Why Choose Us', sectionId: 'why-us' },
     { name: 'Contact', sectionId: 'contact' },
@@ -50,9 +56,11 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-4 mb-4">
+            <div className="flex items-center space-x-4 mb-4 cursor-pointer" onClick={handleLogoClick}>
               <Logo className="h-10 w-10 text-white bg-black rounded-full p-2" />
-              <span className="text-2xl font-bold text-gradient tracking-tight font-company-name">Cognivex Technologies</span>
+              <span className="text-2xl font-bold text-gradient tracking-tight font-company-name">
+                Cognivex Technologies
+              </span>
             </div>
             <p className="text-gray-600 mb-6 max-w-md">
               Leading software development company delivering innovative solutions for businesses worldwide. 
@@ -61,7 +69,9 @@ const Footer = () => {
             <div className="space-y-2">
               <div className="flex items-center space-x-3 text-gray-600">
                 <Mail className="h-4 w-4" />
-                <a href="mailto:info@cognivextechnologies.in" className="text-sm hover:text-gray-900">info@cognivextechnologies.in</a>
+                <a href="mailto:info@cognivextechnologies.in" className="text-sm hover:text-gray-900">
+                  info@cognivextechnologies.in
+                </a>
               </div>
               <div className="flex items-center space-x-3 text-gray-600">
                 <Phone className="h-4 w-4" />
@@ -69,7 +79,9 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3 text-gray-600">
                 <MapPin className="h-4 w-4" />
-                <span className="text-sm">12/B, Cyber Heights, Road No. 10, Hi-Tech City, Hyderabad, Telangana, India</span>
+                <span className="text-sm">
+                  12/B, Cyber Heights, Road No. 10, Hi-Tech City, Hyderabad, Telangana, India
+                </span>
               </div>
             </div>
             <button
@@ -103,7 +115,7 @@ const Footer = () => {
                 <li key={item.name}>
                   <a 
                     href={`#${item.sectionId}`}
-                    onClick={(e) => handleCompanyLinkClick(e, item.sectionId)}
+                    onClick={(e) => item.name === 'Home' ? handleLogoClick() : handleCompanyLinkClick(e, item.sectionId)}
                     className="text-sm text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
                   >
                     {item.name}
