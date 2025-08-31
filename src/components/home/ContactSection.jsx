@@ -12,15 +12,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from '@/components/ui/use-toast';
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you shortly.",
+
+    const form = e.target;
+
+    emailjs.sendForm(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      form,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    )
+    .then(() => {
+      toast({
+        title: "✅ Message Sent!",
+        description: "Thank you for reaching out. We'll get back to you shortly.",
+      });
+      form.reset();
+    })
+    .catch((error) => {
+      console.error("EmailJS error:", error);
+      toast({
+        title: "❌ Failed to send",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
     });
-    e.target.reset();
   };
 
   const services = [
@@ -68,26 +88,30 @@ const ContactSection = () => {
             <form onSubmit={handleFormSubmit} className="space-y-6">
               <div>
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" type="text" placeholder="Your Name" required className="bg-gray-50" />
+                <Input name="user_name" id="name" type="text" placeholder="Your Name" required className="bg-gray-50" />
               </div>
               <div>
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="your.email@example.com" required className="bg-gray-50" />
+                <Input name="user_email" id="email" type="email" placeholder="your.email@example.com" required className="bg-gray-50" />
               </div>
               <div>
                 <Label htmlFor="services">Service of Interest</Label>
-                <Select>
+                <Select name="service">
                   <SelectTrigger id="services" className="bg-gray-50 w-full">
                     <SelectValue placeholder="Select a service" />
                   </SelectTrigger>
                   <SelectContent className="bg-white border border-gray-200 shadow-lg z-50">
                     {services.map((service) => (
-                      <SelectItem key={service.id} value={service.id}>
+                      <SelectItem key={service.id} value={service.title}>
                         {service.title}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+              <div>
+                <Label htmlFor="message">Message</Label>
+                <Input name="message" id="message" type="text" placeholder="Your message" required className="bg-gray-50" />
               </div>
               <Button type="submit" size="lg" className="w-full bg-gray-900 hover:bg-gray-800 text-white">
                 Send Message
@@ -110,8 +134,8 @@ const ContactSection = () => {
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Email</p>
-                <a href="mailto:info@cognivextechnologies.in" className="text-gray-600 hover:text-gray-900">
-                  info@cognivextechnologies.in
+                <a href="mailto:hr@cognivextechnologies.in" className="text-gray-600 hover:text-gray-900">
+                  hr@cognivextechnologies.in
                 </a>
               </div>
             </div>
