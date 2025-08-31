@@ -19,6 +19,16 @@ const Footer = () => {
       navigate(path);
     }
   };
+
+  const handleGetQuoteClick = (e) => {
+    e.preventDefault();
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/#contact');
+    }
+  };
   
   const services = [
     { id: 'web-development', title: 'Web Development' },
@@ -62,6 +72,12 @@ const Footer = () => {
                 <span className="text-sm">12/B, Cyber Heights, Road No. 10, Hi-Tech City, Hyderabad, Telangana, India</span>
               </div>
             </div>
+            <button
+              onClick={handleGetQuoteClick}
+              className="mt-4 px-4 py-2 bg-gray-900 text-white text-sm rounded hover:bg-gray-800 transition"
+            >
+              Get Quote
+            </button>
           </div>
 
           <div>
@@ -100,7 +116,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-200 mt-8 pt-8 text-center">
           <p className="text-sm text-gray-600">
-            © {new Date().getFullYear()} Cognivex Technologies. All rights reserved.
+            © 2020 Cognivex Technologies. All rights reserved.
           </p>
         </div>
       </div>
