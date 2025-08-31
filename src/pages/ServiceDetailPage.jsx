@@ -1,10 +1,9 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { toast } from '@/components/ui/use-toast';
 import { serviceDetailsData } from '@/data/serviceDetailsData';
 import ServiceHero from '@/components/service/ServiceHero';
 import ServiceOverview from '@/components/service/ServiceOverview';
@@ -15,11 +14,21 @@ import ServiceCTA from '@/components/service/ServiceCTA';
 const ServiceDetailPage = () => {
   const { serviceId } = useParams();
   const service = serviceDetailsData[serviceId];
+  const navigate = useNavigate();
 
   const handleContactClick = () => {
-    toast({
-      title: "🚧 This feature isn't implemented yet—but don't worry! You can request it in your next prompt! 🚀"
-    });
+    // Navigate to Home page with hash for Contact section
+    if (window.location.pathname !== '/') {
+      navigate('/#contact');
+      // Scroll will be handled after navigation in a useEffect
+      setTimeout(() => {
+        const el = document.getElementById('contact');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = document.getElementById('contact');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   if (!service) {
@@ -33,12 +42,10 @@ const ServiceDetailPage = () => {
           >
             <h1 className="text-4xl font-bold text-gray-800 mb-4">Service Not Found</h1>
             <p className="text-gray-600 mb-8">The service you are looking for does not exist.</p>
-            <Link to="/">
-              <Button className="bg-gray-800 hover:bg-gray-700 text-white">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Return to Home
-              </Button>
-            </Link>
+            <Button className="bg-gray-800 hover:bg-gray-700 text-white" onClick={() => navigate('/')}>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Return to Home
+            </Button>
           </motion.div>
         </div>
       </div>
