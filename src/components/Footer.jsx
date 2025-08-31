@@ -1,20 +1,11 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Twitter, Github } from 'lucide-react';
-import { toast } from '@/components/ui/use-toast';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import Logo from '@/components/Logo';
 
 const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const handleSocialClick = (e) => {
-    e.preventDefault();
-    toast({
-      title: "🚧 This feature isn't implemented yet—but don't worry! You can request it in your next prompt! 🚀",
-      description: "You can provide your social media links for me to add them.",
-    });
-  };
 
   const handleCompanyLinkClick = (e, sectionId) => {
     e.preventDefault();
@@ -44,12 +35,6 @@ const Footer = () => {
     { name: 'Contact', sectionId: 'contact' },
   ];
 
-  const socialLinks = [
-    { icon: Linkedin, href: "#" },
-    { icon: Twitter, href: "#" },
-    { icon: Github, href: "#" },
-  ];
-
   return (
     <footer className="bg-white border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -70,11 +55,11 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3 text-gray-600">
                 <Phone className="h-4 w-4" />
-                <span className="text-sm">+1 (555) 123-4567</span>
+                <span className="text-sm">+91-9392286613</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-600">
                 <MapPin className="h-4 w-4" />
-                <span className="text-sm">123 Tech Street, Innovation City, IN</span>
+                <span className="text-sm">12/B, Cyber Heights, Road No. 10, Hi-Tech City, Hyderabad, Telangana, India</span>
               </div>
             </div>
           </div>
@@ -113,24 +98,10 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-600">
-              © 2025 Cognivex Technologies. All rights reserved.
-            </p>
-            <div className="flex space-x-4 mt-4 md:mt-0">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  onClick={handleSocialClick}
-                  className="text-gray-500 hover:text-gray-800 transition-colors"
-                >
-                  <social.icon className="h-5 w-5" />
-                </a>
-              ))}
-            </div>
-          </div>
+        <div className="border-t border-gray-200 mt-8 pt-8 text-center">
+          <p className="text-sm text-gray-600">
+            © {new Date().getFullYear()} Cognivex Technologies. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
