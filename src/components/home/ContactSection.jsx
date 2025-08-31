@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Globe, Smartphone, Cloud, Brain, Lock, MessageSquare } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -55,7 +55,9 @@ const ContactSection = () => {
             Have a project in mind? We'd love to hear from you.
           </motion.p>
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -74,13 +76,15 @@ const ContactSection = () => {
               </div>
               <div>
                 <Label htmlFor="services">Service of Interest</Label>
-                <Select>
-                  <SelectTrigger id="services" className="bg-gray-50">
+                <Select name="services" id="services" className="w-full bg-gray-50">
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a service" />
                   </SelectTrigger>
                   <SelectContent>
-                    {services.map(service => (
-                      <SelectItem key={service.id} value={service.id}>{service.title}</SelectItem>
+                    {services.map((service) => (
+                      <SelectItem key={service.id} value={service.title}>
+                        {service.title}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -90,6 +94,8 @@ const ContactSection = () => {
               </Button>
             </form>
           </motion.div>
+
+          {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -104,7 +110,9 @@ const ContactSection = () => {
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Email</p>
-                <a href="mailto:info@cognivextechnologies.in" className="text-gray-600 hover:text-gray-900">info@cognivextechnologies.in</a>
+                <a href="mailto:info@cognivextechnologies.in" className="text-gray-600 hover:text-gray-900">
+                  info@cognivextechnologies.in
+                </a>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -113,7 +121,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Phone</p>
-                <p className="text-gray-600">+1 (555) 123-4567</p>
+                <p className="text-gray-600">+91 93922 86613</p>
               </div>
             </div>
           </motion.div>
