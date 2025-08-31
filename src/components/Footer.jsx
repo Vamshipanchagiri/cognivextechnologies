@@ -7,34 +7,33 @@ const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Navigate to homepage when clicking logo or company name
-  const handleLogoClick = () => {
-    navigate('/');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleCompanyLinkClick = (e, sectionId) => {
-    e.preventDefault();
+  // Scroll to section if on home page, otherwise navigate to home with hash
+  const handleScrollToSection = (sectionId) => {
     if (location.pathname === '/') {
-      const targetElement = document.getElementById(sectionId);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-      }
+      const target = document.getElementById(sectionId);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
     } else {
       navigate(`/#${sectionId}`);
     }
   };
 
-  const handleGetQuoteClick = (e) => {
+  const handleCompanyLinkClick = (e, sectionId) => {
     e.preventDefault();
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+    handleScrollToSection(sectionId);
+  };
+
+  const handleLogoClick = () => {
+    if (location.pathname !== '/') {
+      navigate('/');
     } else {
-      navigate('/#contact');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
-  
+
+  const handleGetQuoteClick = () => {
+    handleScrollToSection('contact');
+  };
+
   const services = [
     { id: 'web-development', title: 'Web Development' },
     { id: 'mobile-app-development', title: 'Mobile App Development' },
@@ -45,7 +44,6 @@ const Footer = () => {
   ];
 
   const companyLinks = [
-    { name: 'Home', sectionId: '' }, // Home link
     { name: 'About Us', sectionId: 'about' },
     { name: 'Why Choose Us', sectionId: 'why-us' },
     { name: 'Contact', sectionId: 'contact' },
@@ -63,7 +61,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-gray-600 mb-6 max-w-md">
-              Leading software development company delivering innovative solutions for businesses worldwide. 
+              Leading software development company delivering innovative solutions for businesses worldwide.
               We transform ideas into powerful digital experiences.
             </p>
             <div className="space-y-2">
@@ -97,7 +95,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {services.map((service) => (
                 <li key={service.id}>
-                  <Link 
+                  <Link
                     to={`/services/${service.id}`}
                     className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                   >
@@ -113,9 +111,9 @@ const Footer = () => {
             <ul className="space-y-2">
               {companyLinks.map((item) => (
                 <li key={item.name}>
-                  <a 
+                  <a
                     href={`#${item.sectionId}`}
-                    onClick={(e) => item.name === 'Home' ? handleLogoClick() : handleCompanyLinkClick(e, item.sectionId)}
+                    onClick={(e) => handleCompanyLinkClick(e, item.sectionId)}
                     className="text-sm text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
                   >
                     {item.name}
@@ -127,9 +125,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-200 mt-8 pt-8 text-center">
-          <p className="text-sm text-gray-600">
-            © 2020 Cognivex Technologies. All rights reserved.
-          </p>
+          <p className="text-sm text-gray-600">© 2020 Cognivex Technologies. All rights reserved.</p>
         </div>
       </div>
     </footer>
