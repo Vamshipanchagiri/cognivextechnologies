@@ -57,7 +57,7 @@ const ContactSection = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {/* Contact Form */}
+          {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -76,13 +76,13 @@ const ContactSection = () => {
               </div>
               <div>
                 <Label htmlFor="services">Service of Interest</Label>
-                <Select name="services" id="services" className="w-full bg-gray-50">
-                  <SelectTrigger className="w-full">
+                <Select>
+                  <SelectTrigger id="services" className="bg-gray-50 w-full">
                     <SelectValue placeholder="Select a service" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white border border-gray-200 shadow-lg z-50">
                     {services.map((service) => (
-                      <SelectItem key={service.id} value={service.title}>
+                      <SelectItem key={service.id} value={service.id}>
                         {service.title}
                       </SelectItem>
                     ))}
@@ -121,7 +121,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Phone</p>
-                <p className="text-gray-600">+91 93922 86613</p>
+                <p className="text-gray-600">+91 9392286613</p>
               </div>
             </div>
           </motion.div>
